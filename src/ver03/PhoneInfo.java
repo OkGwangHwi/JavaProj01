@@ -30,7 +30,5 @@ public class PhoneInfo {
 		}
 	}
 	
-	public String getName() {
-		return name;
-	}
+	
 }
