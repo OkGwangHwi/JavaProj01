@@ -83,7 +83,7 @@ public void dataDelete() {
 }
 
 public void dataAllShow() {
-	System.out.println("전체 데이터 조회");
+	System.out.println("전체 데이터 조회.");
 	
 }
 
