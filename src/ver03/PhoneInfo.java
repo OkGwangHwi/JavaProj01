@@ -29,4 +29,8 @@ public class PhoneInfo {
 			System.out.println("생년월일:"+birthday);
 		}
 	}
+	
+	public String getName() {
+		return name;
+	}
 }

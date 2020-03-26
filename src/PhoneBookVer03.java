@@ -6,7 +6,7 @@ import ver03.PhoneInfo;
 
 public class PhoneBookVer03 {
 	Scanner sc = new Scanner(System.in);
-	private int count;
+	private int count; //전화번호부에 저장되있는 사람수
 	PhoneInfo[] phoneBook;
 	
 public PhoneBookVer03() {
@@ -34,38 +34,63 @@ public void dataInput() {
     phone = sc.nextLine();
     System.out.print("생년월일:");
     birth = sc.nextLine();
-    PhoneInfo phoneInfo = new PhoneInfo(name, phone, birth);
+    phoneBook[count++] = new PhoneInfo(name, phone, birth);
     System.out.println("입력된 정보 출력...");
-    phoneInfo.showPhoneInfo();
+ 
     
-    for(int i=0;i<=100;i++) {
-    }
 }
+
 
 public void dataSearch() {
 
+	int index;
 	String name,phone,birth;
 	System.out.println("데이터 검색을 시작합니다..");
 	System.out.println("이름:");
-	String search = sc.nextLine();
-	for(int i=0;i<=100;i++) {
-		if(search.equalsIgnoreCase(search)) {
-			System.out.println("name:"+name);
-			System.out.println("phone:"+phone);
-			System.out.println("birth:"+birth);
-		}
+	name = sc.nextLine();
+	index = search(name);
+	if(index<0)
+		System.out.println("해당하는 값이 없습니다.");
+	else {
+		phoneBook[index].showPhoneInfo();
 	}
 }
 
+public int search(String name) {
+	for(int index=0;index<count;index++){
+		   if(name.compareTo(phoneBook[index].getName())==0){
+		    return index;
+		   }
+	}
+		  return -1;
+}
+
+
 public void dataDelete() {
-	
+	int index;
+	System.out.println("삭제할 이름 입력:");
+	String name = sc.nextLine();
+	index = search(name);
+	if(index<0)
+		System.out.println("해당하는 값이 없습니다.");
+	else {
+		for(int i=index;i<count-1;i++) {
+			phoneBook[i] = phoneBook[i+1];
+		}
+		count--;
+		System.out.println("데이터 삭제 완료");
+	}
 }
 
 public void dataAllShow() {
+	System.out.println("전체 데이터 조회");
 	
 }
 
+
    public static void main(String[] args) {
+	   
+	   PhoneBookVer03 pbv = new PhoneBookVer03();
       
       int input;
       Scanner sc = new Scanner(System.in);
@@ -73,17 +98,17 @@ public void dataAllShow() {
          printMenu();
          input = sc.nextInt();
          switch(input) {
-         case 1:	 
-        	 dataInput();
+         case 1:
+        	 pbv.dataInput();
             break;
          case 2:
-        	 dataSearch();
+        	 pbv.dataSearch();
         	 break;
          case 3:
-        	 dataDelete();
+        	 pbv.dataDelete();
         	 break;
          case 4:
-        	 dataAllShow();
+        	 pbv.dataAllShow();
         	 break;
          case 5:
         	System.out.println("선택:"+input);
