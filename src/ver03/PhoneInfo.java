@@ -18,10 +18,11 @@ public class PhoneInfo {
 		this.phoneNumber = phoneNumber;
 		this.birthday = null;
 	}
+	
 	//정보출력용 메소드
 	public void showPhoneInfo() {
-		System.out.println("이름:"+name);
-		System.out.println("전화번호:"+phoneNumber);
+		System.out.println("이름:"+ name);
+		System.out.println("전화번호:"+ phoneNumber);
 		if(birthday==null) {
 			System.out.println("생년월일 입력되지 않음.");
 		}
@@ -29,6 +30,4 @@ public class PhoneInfo {
 			System.out.println("생년월일:"+birthday);
 		}
 	}
-	
-	
 }
