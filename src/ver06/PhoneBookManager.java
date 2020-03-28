@@ -3,6 +3,7 @@ package ver06;
 import ver06.PhoneSchoolInfo;
 import ver06.PhoneCompanyInfo;
 import ver06.PhoneInfo;
+
 import java.util.Scanner;
 
 
@@ -23,7 +24,8 @@ public class PhoneBookManager {
       System.out.println("3.데이터 삭제");
       System.out.println("4.프로그램 종료");
       System.out.println("선택 :");
-   }
+
+}
    
    public void dataInput1() {
        
@@ -100,9 +102,9 @@ public void dataInput3() {
           else {
         	  myAddress[i].showPhoneInfo();
               System.out.println("데이터 검색이 완료되었습니다.");
-          }
-      }
-   }
+          		}
+      		}
+	   	}   
 
    
    public void deleteInfo() {
