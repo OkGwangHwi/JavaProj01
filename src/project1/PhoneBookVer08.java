@@ -53,9 +53,9 @@ public class PhoneBookVer08 implements MenuItem,SubMenuItem{
          case MenuItem.SHOWALL:
         	 manager.dataAllShow();
         	 break;
-         case MenuItem.EXIT:
-            System.out.println("프로그램을 종료합니다.");
+         case MenuItem.EXIT:            
             manager.saveInfo();
+            System.out.println("프로그램을 종료합니다.");
             return;
 			}
         }

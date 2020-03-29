@@ -21,7 +21,9 @@ public class PhoneBookManager implements Serializable{
       numOfAddress = 0;
    }
 
-   private PhoneInfo[] myAddress;   
+   private PhoneInfo[] myAddress;
+   private PhoneInfo[] myAddressS;
+   private PhoneInfo[] myAddressF;
    private int numOfAddress;
    HashSet<String> hs = new HashSet<String>();
    
@@ -32,7 +34,7 @@ public class PhoneBookManager implements Serializable{
       System.out.println("2.데이터 검색");
       System.out.println("3.데이터 삭제");
       System.out.println("4.전체 출력");
-      System.out.println("5.프로그램 종료");
+      System.out.println("5.프로그램 종료"); 
       System.out.println("선택 :");
 }
    
@@ -192,6 +194,10 @@ public void dataInput3() {
       String searchName = scan.nextLine();
       
       for(int i=0 ; i<numOfAddress ; i++) {
+    	  if(myAddress[i].name == null)
+    	  {    		  
+    		break;  
+    	  }
           if(searchName.compareTo(myAddress[i].name)!=0) {
           }
           else {
@@ -227,38 +233,52 @@ public void dataInput3() {
       }
    }
    
-   public void dataAllShow() {
-	      for(int i=0 ; i<numOfAddress ; i++) {
-	         myAddress[i].showPhoneInfo();
-	      }
-	      System.out.println("전체정보가 출력되었습니다.");
-   }
    
    
    public void saveInfo() {
-	   
-	   
 	   try {
     	   ObjectOutputStream out = 
     			   new ObjectOutputStream(
     					   new FileOutputStream("src/ver08/PhoneBook.txt")
     					   );
-    	   for(int i=0 ; i<numOfAddress ; i++) {
-				//객체배열의 i번째 요소를 파일로 저장
-				out.writeObject(myAddress[i]);
-				out.close();
+    	   myAddressS = new PhoneInfo[numOfAddress];
+    	   for(int i = 0; i<numOfAddress; i++)
+    	   {
+    		   myAddressS[i] = myAddress[i];    		   
     	   }
-    	   FileInputStream fis = new FileInputStream("src/ver08/PhoneBook.txt");
-    	   ObjectInputStream ois = new ObjectInputStream(fis);
-    	   for(int i=0;i<numOfAddress;i++) {
-    		   myAddress[i] = 
-				in.close();
-    	   }
+    	   System.out.println("myadd : " + myAddressS.length);
+    	   out.writeObject(myAddressS);
+		   out.close();	   
+			
 	   }
 	   catch (Exception e) {
 			System.out.println("예외발생");
 			e.printStackTrace();
-	   		}
-   		}
+	   }
    }
+   
+
+
+public void dataAllShow() {
+	   
+	   
+	   try {
+	 	  
+	 	   FileInputStream fis = new FileInputStream("src/ver08/PhoneBook.txt");
+	 	   ObjectInputStream ois = new ObjectInputStream(fis);	 	   //
+	 	   myAddressF = (PhoneInfo[])ois.readObject();
+	 	   for(int i=0;i<myAddressF.length;i++) {	
+			   myAddressF[i].showPhoneInfo();
+			   myAddress[i] = myAddressF[i];
+	 	   }
+	 	  
+	 	   numOfAddress =myAddressF.length;	 	 
+	 	   ois.close();
+	   }
+	   catch (Exception e) {
+			System.out.println("예외발생");		    
+			e.printStackTrace();
+	   		}
+		}
+}
    
