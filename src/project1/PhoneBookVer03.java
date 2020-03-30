@@ -1,7 +1,6 @@
 package project1;
 
 import ver03.PhoneBookManager;
-import ver03.PhoneInfo;
 import java.util.Scanner;
 
 public class PhoneBookVer03 {
