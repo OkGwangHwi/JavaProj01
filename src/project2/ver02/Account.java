@@ -5,13 +5,17 @@ public class Account {
 	private String accountNumber;
 	private String name;
 	private int balance;
+	private int add;
 	
-	public Account(String accountNumber, String name, int balance) {
+	public Account(String accountNumber, String name, 
+			int balance,int add) {
 		this.accountNumber = accountNumber;
 		this.name = name;
 		this.balance = balance;
+		this.add = add;
 	}
 	
+
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -35,4 +39,14 @@ public class Account {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
+
+	public int getAdd() {
+		return add;
+	}
+
+	public void setAdd(int add) {
+		this.add = add;
+	}
+	
+	
 }

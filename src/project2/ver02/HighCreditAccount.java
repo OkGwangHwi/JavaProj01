@@ -1,15 +1,11 @@
 package project2.ver02;
 
 public class HighCreditAccount extends Account{
-	private double dAdd;
-	private String sAdd;
+	private int gradeAdd;
 
-	
-	
-	public HighCreditAccount(String accountNumber, String name, int balance, double dAdd, String sAdd) {
-		super(accountNumber, name, balance);
-		this.dAdd = dAdd;
-		this.sAdd = sAdd;
+	public HighCreditAccount(String accountNumber, String name, int balance, int add, int gradeAdd) {
+		super(accountNumber, name, balance,add);
+		this.gradeAdd = gradeAdd;
 	}
 
 	@Override
@@ -40,5 +36,23 @@ public class HighCreditAccount extends Account{
 	@Override
 	public void setBalance(int balance) {
 		super.setBalance(balance);
+	}
+	
+	@Override
+	public int getAdd() {
+		return super.getAdd();
+	}
+	
+	@Override
+	public void setAdd(int add) {
+		super.setAdd(add);
+	}
+	
+	public int getGradeAdd() {
+		return gradeAdd;
+	}
+	
+	public void setGradeAdd(int gradeAdd) {
+		this.gradeAdd = gradeAdd;
 	}
 }

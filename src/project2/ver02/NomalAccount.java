@@ -1,11 +1,9 @@
 package project2.ver02;
 
 public class NomalAccount extends Account{
-	private double add;
 
 	public NomalAccount(String accountNumber, String name, int balance, int add) {
-		super(accountNumber, name, balance);
-		this.add = add;
+		super(accountNumber, name, balance,add);
 	}
 	
 	@Override
@@ -37,13 +35,15 @@ public class NomalAccount extends Account{
 	public void setBalance(int balance) {
 		super.setBalance(balance);
 	}
-
-	public double getAdd() {
-		return add;
+	
+	@Override
+	public int getAdd() {
+		return super.getAdd();
 	}
-
-	public void setAdd(double add) {
-		this.add = add;
+	
+	@Override
+	public void setAdd(int add) {
+		super.setAdd(add);
 	}
 	
 	
