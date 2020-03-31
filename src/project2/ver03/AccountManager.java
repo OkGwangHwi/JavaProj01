@@ -1,15 +1,16 @@
-package project2.ver02;
+package project2.ver03;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import project2.ver02.HighCreditAccount;
+
+
 public class AccountManager {
-	
-	
 
 	static Account[] accountArray = new Account[50];
 	static HighCreditAccount[] hcAccount = new HighCreditAccount[50];
 	static Scanner sc = new Scanner(System.in);
-	
 	
 	public static void showMenu() { //메뉴출력
 		System.out.println("1.계좌개설");
@@ -94,8 +95,10 @@ public class AccountManager {
 			}
 		}
 			break;
+		}
+			
 	}
-}
+
 	
 	public static void showAccInfo() {
 		System.out.println("***계좌정보출력***");
@@ -140,7 +143,7 @@ public class AccountManager {
 			}
 		}
 	}
-
+	
 	public static Account findAccount(String ano) {
 		for(int i=0;i<accountArray.length;i++) {
 			if(accountArray[i] == null) {
@@ -171,27 +174,38 @@ public class AccountManager {
 		System.out.print("계좌번호 : ");
 		String ano = sc.next();
 		System.out.print("예금액 : ");
-		int dep = sc.nextInt();
-		sc.nextLine();
-		
-		if(findAccount(ano) == null) {
-			if(findAccountt(ano) == null) {
-				System.out.println("입력한 계좌번호를 찾지 못했습니다.");
+		try {
+			int dep = sc.nextInt();
+			sc.nextLine();
+			if(dep%500 != 0) {
+				System.out.println("500원 단위로 입금이 가능합니다.");
+			}
+			if(dep < 0) {
+				System.out.println("음수값은 입금할 수 없습니다.");
+			}
+			else
+			if(findAccount(ano) == null) {
+				if(findAccountt(ano) == null) {
+					System.out.println("입력한 계좌번호를 찾지 못했습니다.");
+				}
+				else {
+					findAccountt(ano).setBalance(
+							findAccountt(ano).getBalance()
+							+findAccountt(ano).getBalance()*findAccountt(ano).getAdd()/100
+							+findAccountt(ano).getBalance()*findAccountt(ano).getGradeAdd()/100
+							+dep);
+				}
 			}
 			else {
-				findAccountt(ano).setBalance(
-						findAccountt(ano).getBalance()
-						+findAccountt(ano).getBalance()*findAccountt(ano).getAdd()/100
-						+findAccountt(ano).getBalance()*findAccountt(ano).getGradeAdd()/100
+				findAccount(ano).setBalance(
+				findAccount(ano).getBalance()
+						+findAccount(ano).getBalance()*findAccount(ano).getAdd()/100
 						+dep);
+				System.out.println("입금이 완료되었습니다.");
 			}
 		}
-		else {
-			findAccount(ano).setBalance(
-			findAccount(ano).getBalance()
-					+findAccount(ano).getBalance()*findAccount(ano).getAdd()/100
-					+dep);
-			System.out.println("입금이 완료되었습니다.");
+		catch(InputMismatchException e) {
+			System.out.println("문자를 입력할 수 없습니다.");
 		}
 	}
 	public static void withdrawMoney() {
@@ -202,25 +216,59 @@ public class AccountManager {
 		System.out.print("출금액 : ");
 		int wit = sc.nextInt();
 		sc.nextLine();
-
+		int insertt = 0;
+		if(wit%1000 != 0) {
+			System.out.println("1000원 단위로 입금이 가능합니다.");
+		}
+		if(wit < 0) {
+			System.out.println("음수값은 입금할 수 없습니다.");
+		}
+		else
 		if(findAccount(ano) == null) {
 			if(findAccountt(ano) == null) {
 				System.out.println("입력한 계좌번호를 찾지 못했습니다.");
 			}
 			else {
 				if(wit > findAccountt(ano).getBalance()) {
-					System.out.println("잔액보다 큰 액수입니다.");
+					System.out.println("잔고가 부족합니다.금액전체를 출금할까요? YES or NO");
+					String insert = sc.nextLine();
+					switch(insert) {
+					case "YES":
+						insertt = 1;
+						break;
+					case "No":
+						insertt = 2;
+						break;
+					}
+					if(insertt == 1) {
+						findAccountt(ano).setBalance(
+								findAccountt(ano).getBalance()
+								- findAccountt(ano).getBalance());
+					}
+					else {
+						return;
+					}
 				}
 				else {
 					findAccountt(ano).setBalance(
-							findAccountt(ano).getBalance() -  wit);
+							findAccountt(ano).getBalance() - wit);
 					System.out.println("출금이 완료되었습니다.");
 				}
 			}
 		}
 		else {
 			if(wit > findAccount(ano).getBalance()) {
-				System.out.println("잔액보다 큰 액수입니다.");
+				System.out.println("잔고가 부족합니다.금액전체를 출금할까요? YES or NO");
+				String insert = sc.nextLine();
+				if(insertt == 1) {
+					findAccount(ano).setBalance(
+							findAccount(ano).getBalance()
+							- findAccount(ano).getBalance());
+					System.out.println("전액 출금하였습니다.");
+				}
+				else {
+					return;
+				}
 			}
 			else {
 				findAccount(ano).setBalance(
@@ -229,12 +277,4 @@ public class AccountManager {
 			}
 		}
 	}
-	public interface MenuItem{
-		int MAKE = 1,DEPOSIT = 2,WITHDRAW = 3,INQUIRE = 4,EXIT = 5;
-	}
-	
-	public interface subMenuItem{
-		int A = 7, B = 4, C = 2;
-	}
-
 }

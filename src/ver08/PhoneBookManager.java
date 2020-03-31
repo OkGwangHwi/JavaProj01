@@ -27,7 +27,6 @@ public class PhoneBookManager implements Serializable{
    private int numOfAddress;
    HashSet<String> hs = new HashSet<String>();
    
-   
    public static void printMenu() {
       System.out.println("선택하세요...");
       System.out.println("1.데이터 입력");
