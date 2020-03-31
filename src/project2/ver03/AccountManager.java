@@ -180,10 +180,10 @@ public class AccountManager {
 			if(dep%500 != 0) {
 				System.out.println("500원 단위로 입금이 가능합니다.");
 			}
-			if(dep < 0) {
+			else if(dep < 0) {
 				System.out.println("음수값은 입금할 수 없습니다.");
 			}
-			else
+			
 			if(findAccount(ano) == null) {
 				if(findAccountt(ano) == null) {
 					System.out.println("입력한 계좌번호를 찾지 못했습니다.");
