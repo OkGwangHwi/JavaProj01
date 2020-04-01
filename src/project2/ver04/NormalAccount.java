@@ -10,7 +10,7 @@ public class NormalAccount extends Account{
 		super(accountNumber, name, balance);
 		this.add = add;
 	}
-	
+	@Override
 	public void balanceAdd(int deposit) {
 		balance = balance + (balance * add)/100 + deposit;
 	}

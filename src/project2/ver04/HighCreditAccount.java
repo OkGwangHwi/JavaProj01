@@ -14,11 +14,11 @@ public class HighCreditAccount extends Account implements CustomSpecialRate{
 	public void showAccInfo() {
 		super.showAccInfo();
 		System.out.println("기본이자 : "+add+"%");
-		System.out.println("신용등급 : "+ratingAdd+"%");
+		System.out.println("신용등급 : "+rating);
 
 	}
-	
-	public void balanceDeposit(int deposit) {
+	@Override
+	public void balanceAdd(int deposit) {
 		int Credit=0;
 		
 		if(rating.equals("A")) {
