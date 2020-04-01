@@ -8,11 +8,11 @@ import project2.ver02.HighCreditAccount;
 
 public class AccountManager {
 
-	static Account[] accountArray = new Account[50];
-	static HighCreditAccount[] hcAccount = new HighCreditAccount[50];
-	static Scanner sc = new Scanner(System.in);
+	Account[] accountArray = new Account[50];
+	HighCreditAccount[] hcAccount = new HighCreditAccount[50];
+	Scanner sc = new Scanner(System.in);
 	
-	public static void showMenu() { //메뉴출력
+	public  void showMenu() { //메뉴출력
 		System.out.println("1.계좌개설");
 		System.out.println("2.입금");
 		System.out.println("3.출금");
@@ -20,7 +20,7 @@ public class AccountManager {
 		System.out.println("5.프로그램 종료");
 	}
 	
-	public static void makeAccount() {
+	public  void makeAccount() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("***신규계좌개설***");
@@ -100,7 +100,7 @@ public class AccountManager {
 	}
 
 	
-	public static void showAccInfo() {
+	public  void showAccInfo() {
 		System.out.println("***계좌정보출력***");
 		for(int i =0; i<accountArray.length+hcAccount.length;i++) {
 			if(accountArray[i] ==null) {
@@ -144,7 +144,7 @@ public class AccountManager {
 		}
 	}
 	
-	public static Account findAccount(String ano) {
+	public  Account findAccount(String ano) {
 		for(int i=0;i<accountArray.length;i++) {
 			if(accountArray[i] == null) {
 				break;
@@ -156,7 +156,7 @@ public class AccountManager {
 		return null;
 	}
 	
-	public static HighCreditAccount findAccountt(String ano) {
+	public  HighCreditAccount findAccountt(String ano) {
 		for(int i=0;i<hcAccount.length;i++) {
 			if(hcAccount[i] == null) {
 				break;
@@ -168,7 +168,7 @@ public class AccountManager {
 		return null;
 	}
 	
-	public static void depositMoney() {
+	public  void depositMoney() {
 		System.out.println("***입금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요");
 		System.out.print("계좌번호 : ");
@@ -208,7 +208,7 @@ public class AccountManager {
 			System.out.println("문자를 입력할 수 없습니다.");
 		}
 	}
-	public static void withdrawMoney() {
+	public  void withdrawMoney() {
 		System.out.println("***출금***");
 		System.out.println("계좌번호와 출금할 금액을 입력하세요");
 		System.out.print("계좌번호 : ");

@@ -9,6 +9,11 @@ public class NormalAccount extends Account{
 	}
 	
 	@Override
+	public void balanceAdd(int dep) {
+		balance = balance+balance*add/100+dep;
+	}
+	
+	@Override
 	public void showAccount() {
 		super.showAccount();
 	}

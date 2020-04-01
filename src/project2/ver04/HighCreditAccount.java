@@ -8,6 +8,11 @@ public class HighCreditAccount extends Account{
 		super(accountNumber, name, balance,add);
 		this.gradeAdd = gradeAdd;
 	}
+	
+	@Override
+	public void balanceAdd(int dep) {
+		balance = balance+balance*add/100+balance*gradeAdd/100+dep;
+	}
 
 	@Override
 	public void showAccount() {

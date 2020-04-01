@@ -14,19 +14,30 @@ import project2.ver04.HighCreditAccount;
 
 public class AccountManager {
 
-	static HashSet<Account> hs = new HashSet<Account>();
-	static Scanner sc = new Scanner(System.in);
+	HashSet<Account> hs = new HashSet<Account>();
 	
 	public AccountManager() {
 		try {
 			ObjectInputStream in = 
 					new ObjectInputStream(
 							new FileInputStream(
-									"src/ver04/customerAccount.obj"));
+									"src/project2.ver04/customerAccount.obj"));
 			
 		}
 		catch(Exception e) {
 			System.out.println("파일을 찾을 수 없습니다.");
+		}
+	}
+	
+	public void saveAccountCustomer() {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream("src/project2.ver04/customerAccount.obj"));
+			out.writeObject(hs);
+					
+		}catch(Exception e) {
+			System.out.println("예외발생");
+			e.printStackTrace();
 		}
 	}
 	
@@ -38,9 +49,11 @@ public class AccountManager {
 		System.out.println("5.프로그램 종료");
 	}
 	
-	public void OverlapAccNum(String accountNumber,Account account) {
+	public void OverlapAccNum(String accountNumber,String name,Account account) {
+		Scanner sc = new Scanner(System.in);
+		boolean it = hs.add(account);
 		
-		if(hs.contains(accountNumber)==false) {
+		if(it == false) {
 			System.out.println("중복된 계좌번호입니다.새로 만드시겠습니까? YES = 1 , NO = 2");
 			int choice = sc.nextInt();
 			if(choice == 1) {
@@ -54,19 +67,19 @@ public class AccountManager {
 	}
 	
 	public void makeAccount() {
+		Scanner sc = new Scanner(System.in);
 		String newAccountNumber,newName;
 		int newBalance,add;
-		Scanner sc = new Scanner(System.in);
 
 		System.out.println("***신규계좌개설***");
 		System.out.println("----계좌선택----");
 		System.out.println("보통계좌");
 		System.out.println("신용신뢰계좌");
 		System.out.print("선택 : ");
-		int choice1 = sc.nextInt();
+		int choice = sc.nextInt();
 		sc.nextLine();
 		
-		switch(choice1) {
+		switch(choice) {
 		case 1:
 			System.out.print("계좌번호 : ");
 			newAccountNumber = sc.nextLine();
@@ -83,7 +96,9 @@ public class AccountManager {
 			sc.nextLine();
 			
 			NormalAccount noAccount = new NormalAccount(newAccountNumber, newName, newBalance, add);
-			OverlapAccNum(newAccountNumber, noAccount);
+			OverlapAccNum(newAccountNumber,newName,noAccount);
+			System.out.println("계좌가 개설되었습니다.");
+			break;
 		case 2:
 			System.out.print("계좌번호 : ");
 			newAccountNumber = sc.nextLine();
@@ -115,31 +130,24 @@ public class AccountManager {
 			}
 			
 			HighCreditAccount hiAccount = new HighCreditAccount(newAccountNumber, newName, newBalance, add, gradeAdd);
-			OverlapAccNum(newAccountNumber, hiAccount);
+			OverlapAccNum(newAccountNumber,newName,hiAccount);
+			System.out.println("계좌가 개설되었습니다.");
+			break;
 		}
 			
 	}
 	
 	public void showAccInfo() {
+		Scanner sc = new Scanner(System.in);
 		System.out.println("***계좌정보출력***");
-//		while(itr.hasNext()) {
-//			if(hs == null) {
-//				break;
-//			}
-//			else {
-//				
-//			}
-//		}
-		
-		for(Account info : hs) {
-			
-			info.showAccount();
-			System.out.println("----------------");
+		for(Account acc : hs) {
+			acc.showAccount();
 		}
 		System.out.println("전체정보 출력완료");
 	}
 	
-	public static void depositMoney() {
+	public void depositMoney() {
+		Scanner sc = new Scanner(System.in);
 		System.out.println("***입금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요");
 		System.out.print("계좌번호 : ");
@@ -155,25 +163,24 @@ public class AccountManager {
 				System.out.println("음수값은 입금할 수 없습니다.");
 			}
 			
-			Iterator<Account> itr = hs.iterator();
-			while(itr.hasNext()) {
-				Account account = itr.next();
-				if(newAccountNumber.endsWith(account.accountNumber)) {
+			Iterator<Account> iter = hs.iterator();
+			while(iter.hasNext()) {
+				Account account = iter.next();
+				if(newAccountNumber.equals(account.accountNumber)) {
+					account.balanceAdd(dep);
+				}
+				else {
+					System.out.println("입력한 계좌를 찾지 못했습니다.");
 				}
 			}
-			
-			if(hs == null) {
-				System.out.println("입력한 계좌번호를 찾지 못했습니다.");
-			}
-			else {
-				}
-			}
+		}
 		catch(InputMismatchException e) {
 			System.out.println("문자를 입력할 수 없습니다.");
 			}
 		}
-
-	public static void withdrawMoney() {
+	
+	public void withdrawMoney() {
+		Scanner sc = new Scanner(System.in);
 		System.out.println("***출금***");
 		System.out.println("계좌번호와 출금할 금액을 입력하세요");
 		System.out.print("계좌번호 : ");
@@ -189,32 +196,25 @@ public class AccountManager {
 			System.out.println("음수값은 입금할 수 없습니다.");
 		}
 		
-		Iterator<Account> ir = hs.iterator();
-		while(ir.hasNext()) {
-			Account account = ir.next();
-			if(newAccountNumber.endsWith(account.accountNumber)) {
-				
-				if(account.balance<wit) {
+		Iterator<Account> itr = hs.iterator();
+		while(itr.hasNext()) {
+			Account account = itr.next();
+			if(newAccountNumber.equals(account.accountNumber)) {
+				if(account.balance < wit) {
 					
 					System.out.println("잔고가 부족합니다. 금액전체를 출금할까요?");
-					
 					System.out.println("yes : 금액전체 출금처리, no : 출금요청취소");
-					String choice03 = sc.nextLine();
+					String choice = sc.nextLine();
 					
-					
-					if(choice03.equals("yes")) {
-						
+					if(choice.equals("yes")) {
 						account.balance = 0;
-						
 					}
-					else if(choice03.equals("no")) {
-						
+					else if(choice.equals("no")) {
 						System.out.println("출금요청을 취소합니다.");
 					}
 				}
 				else {
 					account.balance -= wit;
-					
 					System.out.println("출금이 완료되었습니다.");
 				}
 			}
@@ -222,19 +222,6 @@ public class AccountManager {
 	}
 	catch(InputMismatchException e) {
 		System.out.println("문자형태로 입력하면 안되요.");
-	}
-}
-	
-	public void saveAccountCustomer() {
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("src/ver04/customerAccount.obj"));
-			
-			out.writeObject(hs);
-					
-		}catch(Exception e) {
-			System.out.println("예외발생");
-			e.printStackTrace();
 		}
 	}
 }

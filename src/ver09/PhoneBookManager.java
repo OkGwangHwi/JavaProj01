@@ -11,10 +11,10 @@ public class PhoneBookManager {
       numOfAddress = 0;
    }
 
-   private PhoneInfo[] myAddress;
-   private int numOfAddress;
+    PhoneInfo[] myAddress;
+    int numOfAddress;
    
-   public static void printMenu() {
+   public  void printMenu() {
       System.out.println("선택하세요...");
       System.out.println("1.데이터 입력");
       System.out.println("2.데이터 검색");

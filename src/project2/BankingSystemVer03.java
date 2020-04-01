@@ -3,7 +3,6 @@ package project2;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import project2.ver03.Account;
 import project2.ver03.AccountManager;
 import project2.ver03.MenuChoice;
 import project2.ver03.MenuSelectException;
@@ -47,7 +46,6 @@ public class BankingSystemVer03 implements MenuChoice{
 				System.out.println("숫자를 입력하세요.");
 				break;
 			} catch (MenuSelectException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
