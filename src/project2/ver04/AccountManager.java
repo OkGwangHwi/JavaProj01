@@ -135,9 +135,11 @@ private void checkOverlap(Account acc) {
 			sc.nextLine();
 			if(dep%500 != 0) {
 				System.out.println("500원 단위로 입금이 가능합니다.");
+				return;
 			}
-			else if(dep < 0) {
+			if(dep < 0) {
 				System.out.println("음수값은 입금할 수 없습니다.");
+				return;
 			}
 			
 			Iterator<Account> iter = set.iterator();
@@ -163,10 +165,12 @@ private void checkOverlap(Account acc) {
 		int wit = sc.nextInt();
 		sc.nextLine();
 		if(wit%1000 != 0) {
-			System.out.println("1000원 단위로 입금이 가능합니다.");
+			System.out.println("1000원 단위로 출금이 가능합니다.");
+			return;
 		}
 		if(wit < 0) {
-			System.out.println("음수값은 입금할 수 없습니다.");
+			System.out.println("음수값은 출금할 수 없습니다.");
+			return;
 		}
 		
 		Iterator<Account> itr = set.iterator();
